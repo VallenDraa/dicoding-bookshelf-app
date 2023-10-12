@@ -7,6 +7,36 @@
     <title>Bookshelf App</title>
   </head>
   <body>
+    <h1>My Bookshelf</h1>
+
+    <!-- form input buku -->
+    <form id="form-input-buku">
+      <label>
+        Judul
+        <input type="text" id="input-judul" />
+      </label>
+      <label>
+        Penulis
+        <input type="text" id="input-penulis" />
+      </label>
+      <label>
+        Tahun
+        <input type="text" id="input-tahun" />
+      </label>
+      <label>
+        Selesai Dibaca
+        <input type="checkbox" id="input-selesai-dibaca" />
+      </label>
+
+      <button type="submit">Masukkan Buku Ke Rak</button>
+    </form>
+
+    <!-- list buku yang belum selesai dibaca -->
+    <ul id="list-belum-dibaca"></ul>
+
+    <!-- list buku yang sudah selesai dibaca -->
+    <ul id="list-sudah-dibaca"></ul>
+
     <script src="./scripts/main.js" type="module"></script>
   </body>
 </html>

@@ -7,35 +7,62 @@
     <title>Bookshelf App</title>
   </head>
   <body>
-    <h1>My Bookshelf</h1>
-
     <!-- form input buku -->
     <form id="form-input-buku">
-      <label>
-        Judul
-        <input type="text" id="input-judul" />
-      </label>
-      <label>
-        Penulis
-        <input type="text" id="input-penulis" />
-      </label>
-      <label>
-        Tahun
-        <input type="text" id="input-tahun" />
-      </label>
-      <label>
-        Selesai Dibaca
-        <input type="checkbox" id="input-selesai-dibaca" />
-      </label>
+      <h1>My Bookshelf</h1>
+
+      <div class="form">
+        <label>
+          Judul
+          <input type="text" id="input-judul" />
+        </label>
+        <label>
+          Penulis
+          <input type="text" id="input-penulis" />
+        </label>
+        <label>
+          Tahun
+          <input type="number" min="0" id="input-tahun" />
+        </label>
+        <label>
+          Selesai Dibaca
+          <input type="checkbox" id="input-selesai-dibaca" />
+        </label>
+      </div>
 
       <button type="submit">Masukkan Buku Ke Rak</button>
     </form>
 
+    <!-- search bar buku -->
+    <form id="form-search-buku">
+      <label>
+        Cari Buku
+        <input type="search" id="input-cari-buku" />
+      </label>
+
+      <button>Cari</button>
+    </form>
+
     <!-- list buku yang belum selesai dibaca -->
-    <ul id="list-belum-dibaca"></ul>
+    <section>
+      <h2>Buku yang belum terbaca</h2>
+      <ul id="list-belum-dibaca"></ul>
+    </section>
 
     <!-- list buku yang sudah selesai dibaca -->
-    <ul id="list-sudah-dibaca"></ul>
+    <section>
+      <h2>Buku yang sudah terbaca</h2>
+      <ul id="list-sudah-dibaca"></ul>
+    </section>
+
+    <!-- dialog konfirmasi penghapusan buku -->
+    <dialog id="dialog-konfirmasi-hapus">
+      <h2>Yakin Ingin Menghapus?</h2>
+      <div>
+        <button type="button" id="tombol-cancel-hapus">Cancel</button>
+        <button type="button" id="tombol-konfirmasi-hapus">Hapus</button>
+      </div>
+    </dialog>
 
     <script src="./scripts/main.js" type="module"></script>
   </body>

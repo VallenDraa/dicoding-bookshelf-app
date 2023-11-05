@@ -14,32 +14,32 @@ import { el } from "./utils.js";
  * @returns {HTMLElement}
  */
 const createBookElement = book => {
-  const { author, id, isComplete, title, year } = book;
+  const { author, id, isComplete, isEditing, title, year } = book;
 
   const titleInputElement = el("h2", {
     textContent: title,
-    contentEditable: book.isEditing,
+    contentEditable: isEditing,
     className: "title-buku",
   });
   const authorInputElement = el("span", {
     textContent: author,
-    contentEditable: book.isEditing,
+    contentEditable: isEditing,
     className: "penulis-buku",
   });
   const yearInputElement = el("span", {
     type: "number",
     textContent: year,
-    contentEditable: book.isEditing,
+    contentEditable: isEditing,
     className: "tahun-terbit-buku",
   });
 
   const changeStatusbutton = el("button", {
     title: "Ganti Status Buku",
-    className: book.isComplete ? "buku-selesai" : undefined,
+    className: isComplete ? "buku-selesai" : undefined,
     children: [
       el("i", {
         className: `fa-regular fa-lg ${
-          book.isComplete ? "fa-square-check" : "fa-square"
+          isComplete ? "fa-square-check" : "fa-square"
         }`,
       }),
     ],

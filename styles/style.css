@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap");
+
+:root {
+  --main-text-color: #e5e7eb;
+  --secondary-text-color: #9ca3af;
+  --main-section-bg: #1f2937;
+  --secondary-section-bg: #374151;
+
+  --checked-color: #10b981;
+  --danger-color: #ef4444;
+
+  --shadow: box-shadow: rgba(55, 65, 81, 0.1) 0px 10px 15px -3px, rgba(55, 65, 81, 0.05) 0px 4px 6px -2px;
+
+  --spacing: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--main-text-color);
+  background-color: #030712;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  text-align: center;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 600;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input {
+  margin: 0;
+}
+
+button {
+  padding-block: calc(var(--spacing) * 2);
+  padding-inline: calc(var(--spacing) * 3);
+  border: none;
+  font-weight: 600;
+  background-color: var(--main-section-bg);
+  color: var(--main-text-color);
+  cursor: pointer;
+  border-radius: var(--spacing);
+  transition: background-color 200ms ease-in-out;
+  box-shadow: var(--shadow);
+}
+
+button:hover {
+  background-color: var(--secondary-section-bg);
+}
+
+button:active {
+  background-color: #111827;
+}
+
+select {
+  border-radius: var(--spacing);
+  padding: calc(var(--spacing) * 2);
+  background-color: var(--main-section-bg);
+  color: var(--main-text-color);
+  border: 0;
+}
+
+.wrapper {
+  max-width: 540px;
+  margin-inline: auto;
+  width: 95%;
+}
+
+#form-input-buku {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+  padding-bottom: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 3);
+  border-bottom: 0.5px solid var(--secondary-section-bg);
+}
+
+#form-input-buku h1 {
+  padding: calc(var(--spacing) * 3);
+}
+
+.form-fields {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1.5);
+}
+
+.input-label {
+  color: #9ca3af;
+  font-size: small;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: var(--spacing);
+}
+
+.input-label input {
+  border: none;
+  color: var(--main-text-color);
+  border-radius: var(--spacing);
+  font-weight: 600;
+  font-size: medium;
+  padding-block: calc(var(--spacing) * 2);
+  padding-inline: calc(var(--spacing) * 3);
+  background-color: var(--main-section-bg);
+  box-shadow: var(--shadow);
+}
+
+.checkbox-label {
+  box-shadow: var(--shadow);
+  background-color: var(--main-section-bg);
+  padding-block: calc(var(--spacing) * 1.5);
+  padding-inline: calc(var(--spacing) * 3);
+  font-size: smaller;
+  cursor: pointer;
+  margin-top: var(--spacing);
+  display: inline-flex;
+  width: max-content;
+  border-radius: 40px;
+  justify-content: center;
+  gap: var(--spacing);
+  transition: background-color 200ms ease-in-out;
+}
+
+.checkbox-label:has(input:checked) {
+  background-color: var(--checked-color);
+}
+
+
+#form-search-buku .input-label {
+  flex-direction: row;
+  gap: 0;
+}
+
+#form-search-buku input {
+  width: 100%;
+  outline: 0;
+  border: 0;
+}
+
+#form-search-buku button {
+  border-top-right-radius: var(--spacing);
+  border-bottom-right-radius: var(--spacing);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  background-color: var(--main-section-bg);
+  color: var(--main-text-color);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+#form-search-buku button:hover {
+  background-color: var(--secondary-section-bg);
+}
+
+#form-search-buku .input-label {
+  gap: var(--spacing);
+  flex-wrap: wrap;
+}
+
+#form-search-buku .input-label>* {
+  flex-grow: 1;
+}
+
+#input-cari-buku {
+  border-top-left-radius: var(--spacing);
+  border-bottom-left-radius: var(--spacing);
+  flex-grow: 1;
+  outline: none;
+  border: none;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  background-color: var(--main-section-bg);
+  box-shadow: var(--shadow);
+  color: var(--main-text-color);
+}
+
+
+#list-buku {
+  padding-block: calc(var(--spacing) * 3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+}
+
+#list-buku .buku {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--spacing) * 2);
+  background-color: var(--main-section-bg);
+  box-shadow: var(--shadow);
+  border-radius: var(--spacing);
+}
+
+#list-buku .buku .title-buku {
+  color: var(--main-text-color);
+  width: 100%;
+  font-weight: 600;
+  text-align: start;
+}
+
+#list-buku .buku .data-buku {
+  margin-top: var(--spacing);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing);
+  flex-wrap: wrap;
+}
+
+#list-buku .buku .data-buku p {
+  display: flex;
+  align-items: center;
+}
+
+#list-buku .buku .subtitle-buku {
+  display: flex;
+  gap: calc(var(--spacing) / 2);
+  justify-content: start;
+  color: var(--secondary-text-color);
+  font-size: small;
+}
+
+#list-buku .buku .opsi-buku {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing));
+}
+
+#list-buku .buku button {
+  border-radius: calc(var(--spacing) / 2);
+}
+
+#list-buku .buku [title="Hapus Buku"] {
+  opacity: 90%;
+  background-color: var(--danger-color);
+  transition: opacity 200ms ease-in-out;
+}
+
+#list-buku .buku [title="Hapus Buku"]:hover {
+  opacity: 100%;
+}
+
+#list-buku .buku [contenteditable]:not(.title-buku) {
+  font-style: italic;
+  transition: background-color 200ms ease-in-out;
+}
+
+#list-buku .buku [contenteditable="true"] {
+  padding: var(--spacing);
+  border-radius: var(--spacing);
+  background-color: var(--secondary-section-bg);
+}
+
+#list-buku .buku .buku-selesai {
+  opacity: 90%;
+  background-color: var(--checked-color);
+  transition: opacity 200ms ease-in-out;
+}
+
+#list-buku .buku .buku-selesai:hover {
+  opacity: 100%;
+}

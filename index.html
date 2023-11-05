@@ -3,67 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Bookshelf App</title>
   </head>
   <body>
-    <!-- form input buku -->
-    <form id="form-input-buku">
-      <h1>My Bookshelf</h1>
+    <div class="wrapper">
+      <!-- form input buku -->
+      <form id="form-input-buku">
+        <h1>My Bookshelf</h1>
 
-      <div class="form">
-        <label>
-          Judul
-          <input type="text" id="input-judul" />
-        </label>
-        <label>
-          Penulis
-          <input type="text" id="input-penulis" />
-        </label>
-        <label>
-          Tahun
-          <input type="number" min="0" id="input-tahun" />
-        </label>
-        <label>
-          Selesai Dibaca
-          <input type="checkbox" id="input-selesai-dibaca" />
-        </label>
+        <div class="form-fields">
+          <label class="input-label">
+            Judul
+            <input type="text" id="input-judul" />
+          </label>
+          <label class="input-label">
+            Penulis
+            <input type="text" id="input-penulis" />
+          </label>
+          <label class="input-label">
+            Tahun
+            <input type="number" min="0" id="input-tahun" />
+          </label>
+          <label class="checkbox-label">
+            Selesai Dibaca
+            <input type="checkbox" id="input-selesai-dibaca" />
+          </label>
+        </div>
+
+        <button type="submit">Tambah Buku</button>
+      </form>
+
+      <!-- search bar buku -->
+      <div class="search-buku input-label">
+        <input placeholder="Cari Buku" type="search" id="input-cari-buku" />
+        <select id="opsi-list-buku">
+          <option value="semua">Semua</option>
+          <option value="dibaca">Telah Dibaca</option>
+          <option value="belum-dibaca">Belum Dibaca</option>
+        </select>
       </div>
 
-      <button type="submit">Masukkan Buku Ke Rak</button>
-    </form>
+      <!-- list buku -->
+      <ul id="list-buku"></ul>
 
-    <!-- search bar buku -->
-    <form id="form-search-buku">
-      <label>
-        Cari Buku
-        <input type="search" id="input-cari-buku" />
-      </label>
-
-      <button>Cari</button>
-    </form>
-
-    <!-- list buku yang belum selesai dibaca -->
-    <section>
-      <h2>Buku yang belum terbaca</h2>
-      <ul id="list-belum-dibaca"></ul>
-    </section>
-
-    <!-- list buku yang sudah selesai dibaca -->
-    <section>
-      <h2>Buku yang sudah terbaca</h2>
-      <ul id="list-sudah-dibaca"></ul>
-    </section>
-
-    <!-- dialog konfirmasi penghapusan buku -->
-    <dialog id="dialog-konfirmasi-hapus">
-      <h2>Yakin Ingin Menghapus?</h2>
-      <div>
-        <button type="button" id="tombol-cancel-hapus">Cancel</button>
-        <button type="button" id="tombol-konfirmasi-hapus">Hapus</button>
-      </div>
-    </dialog>
-
-    <script src="./scripts/main.js" type="module"></script>
+      <script src="./scripts/main.js" type="module"></script>
+    </div>
   </body>
 </html>

@@ -5,79 +5,133 @@ import {
   invertBookStatus,
   saveBookEdits,
 } from "./book-data.js";
-import { readList, unreadList } from "./main.js";
-import { el, qs } from "./utils.js";
+import { bookList } from "./main.js";
+import { getKeyword, getSelectedListType } from "./search-feature.js";
+import { el } from "./utils.js";
 
 /**
  * @param {import("./book-data").Book} book
  * @returns {HTMLElement}
  */
 const createBookElement = book => {
-  const { author, id, isComplete, isEditing, title, year } = book;
+  const { author, id, isComplete, title, year } = book;
+
+  const titleInputElement = el("h2", {
+    textContent: title,
+    contentEditable: book.isEditing,
+    className: "title-buku",
+  });
+  const authorInputElement = el("span", {
+    textContent: author,
+    contentEditable: book.isEditing,
+    className: "penulis-buku",
+  });
+  const yearInputElement = el("span", {
+    type: "number",
+    textContent: year,
+    contentEditable: book.isEditing,
+    className: "tahun-terbit-buku",
+  });
 
   const changeStatusbutton = el("button", {
-    textContent: isComplete ? "Belum selesai dibaca" : "Selesai dibaca",
+    title: "Ganti Status Buku",
+    className: book.isComplete ? "buku-selesai" : undefined,
+    children: [
+      el("i", {
+        className: `fa-regular fa-lg ${
+          book.isComplete ? "fa-square-check" : "fa-square"
+        }`,
+      }),
+    ],
   });
   changeStatusbutton.addEventListener(
     "click",
     () => {
       invertBookStatus(id);
-      renderBook(getBooks(), readList, unreadList);
+      renderBook(getBooks(getKeyword()), bookList, getSelectedListType());
     },
     { once: true },
   );
 
-  const deleteButton = el("button", { textContent: "Hapus Buku" });
+  const deleteButton = el("button", {
+    title: "Hapus Buku",
+    children: [
+      el("i", {
+        className: "fa-regular fa-trash-can fa-lg",
+      }),
+    ],
+  });
   deleteButton.addEventListener(
     "click",
     () => {
       deletebook(id);
-      renderBook(getBooks(), readList, unreadList);
+      renderBook(getBooks(getKeyword()), bookList, getSelectedListType());
     },
     { once: true },
   );
 
-  const editButton = el("button", { textContent: "Edit Buku" });
+  const editButton = el("button", {
+    title: "Edit Buku",
+    children: [
+      el("i", {
+        className: `fa-regular fa-lg ${
+          book.isEditing ? "fa-floppy-disk" : "fa-pen-to-square"
+        }`,
+      }),
+    ],
+  });
   editButton.addEventListener(
     "click",
     () => {
       if (!book.isEditing) {
-        enterEditMode();
-        renderBook(getBooks(), readList, unreadList);
+        enterEditMode(book.id);
       } else {
+        const year = parseInt(yearInputElement.textContent);
+
+        console.log(year);
+        if (isNaN(year) || year < 0) {
+          return;
+        }
+
         saveBookEdits({
           ...book,
-          title: qs(`#title-${book.id}`).value,
-          author: qs(`#author-${book.id}`).value,
-          year: qs(`#year-${book.id}`).valueAsNumber,
+          title: titleInputElement.textContent,
+          author: authorInputElement.textContent,
+          year,
         });
       }
+
+      renderBook(getBooks(getKeyword()), bookList, getSelectedListType());
     },
     { once: true },
   );
 
   return el("li", {
-    className: isComplete ? "buku-selesai" : "buku-belum-selesai",
+    className: "buku",
     children: [
-      el("input", {
-        id: `title-${book.id}`,
-        value: title,
-        className: "title-buku",
-      }),
-      el("input", {
-        id: `author-${book.id}`,
-        value: author,
-        className: "penulis-buku",
-      }),
-      el("input", {
-        id: `year-${book.id}`,
-        value: year,
-        className: "tahun-terbit-buku",
-      }),
       el("div", {
-        id,
-        className: "opsi-buku",
-        children: [changeStatusbutton, editButton, deleteButton],
+        children: [
+          titleInputElement,
+          el("div", {
+            className: "data-buku",
+            children: [
+              el("p", {
+                className: "subtitle-buku",
+                children: [
+                  "Ditulis oleh: ",
+                  authorInputElement,
+                  " - Terbit: ",
+                  yearInputElement,
+                ],
+              }),
+              el("div", {
+                id,
+                className: "opsi-buku",
+                children: [editButton, changeStatusbutton, deleteButton],
+              }),
+            ],
+          }),
+        ],
       }),
     ],
   });
@@ -86,20 +140,33 @@ const createBookElement = book => {
 /**
  *
  * @param {Array<import("./book-data").Book>} books
- * @param {HTMLUListElement} readList
- * @param {HTMLUListElement} unreadList
+ * @param {HTMLUListElement} bookList
+ * @param {"semua" | "dibaca" | "belum-dibaca"} selectedList
  */
-export const renderBook = (books, readList, unreadList) => {
-  readList.innerHTML = "";
-  unreadList.innerHTML = "";
+export const renderBook = (books, bookList, selectedList) => {
+  bookList.innerHTML = "";
+
+  const filteredBooks = [];
 
   for (const book of books) {
-    const bookElement = createBookElement(book);
+    if (selectedList === "dibaca" && !book.isComplete) {
+      continue;
+    }
 
-    if (book.isComplete) {
-      readList.appendChild(bookElement);
-    } else {
-      unreadList.appendChild(bookElement);
+    if (selectedList === "belum-dibaca" && book.isComplete) {
+      continue;
+    }
+
+    filteredBooks.push(book);
+  }
+
+  if (filteredBooks.length === 0) {
+    bookList.innerHTML =
+      "<p style='margin-block: calc(var(--spacing) * 3); color: var(--secondary-text-color);'>Belum ada buku!</p>";
+  } else {
+    for (const book of filteredBooks) {
+      const bookElement = createBookElement(book);
+      bookList.appendChild(bookElement);
     }
   }
 };

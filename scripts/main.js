@@ -1,5 +1,10 @@
-import { createBook, getBooks, searchBooks } from "./book-data.js";
+import { createBook, getBooks } from "./book-data.js";
 import { renderBook } from "./book-element.js";
+import {
+  getKeyword,
+  getSelectedListType,
+  searchFeatureInit,
+} from "./search-feature.js";
 import { qs } from "./utils.js";
 
 const bookInputForm = qs("#form-input-buku");
@@ -8,13 +13,9 @@ const authorInput = qs("#input-penulis");
 const yearInput = qs("#input-tahun");
 const isCompleteInput = qs("#input-selesai-dibaca");
 
-export const unreadList = qs("#list-belum-dibaca");
-export const readList = qs("#list-sudah-dibaca");
+export const bookList = qs("#list-buku");
 
-const searchBooksForm = qs("#form-search-buku");
-const searchBar = qs("#input-cari-buku");
-
-renderBook(getBooks(), readList, unreadList);
+renderBook(getBooks(getKeyword()), bookList, getSelectedListType());
 
 // handle submit event untuk form input buku
 bookInputForm.addEventListener("submit", e => {
@@ -30,7 +31,7 @@ bookInputForm.addEventListener("submit", e => {
     const isCreated = createBook(title, author, year, isComplete);
 
     if (isCreated) {
-      renderBook(getBooks(), readList, unreadList);
+      renderBook(getBooks(getKeyword()), bookList, getSelectedListType());
 
       titleInput.value = "";
       authorInput.value = "";
@@ -39,10 +40,4 @@ bookInputForm.addEventListener("submit", e => {
   }
 });
 
-// handle submit event untuk searching buku
-searchBooksForm.addEventListener("submit", e => {
-  e.preventDefault();
-
-  const keyword = searchBar.value.trim();
-  renderBook(searchBooks(keyword), readList, unreadList);
-});
+searchFeatureInit();

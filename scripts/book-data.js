@@ -61,6 +61,8 @@ export const saveBookEdits = newBook => {
       books[i] = { ...newBook, isEditing: false };
     }
   });
+
+  saveBooks();
 };
 
 /**
@@ -94,7 +96,11 @@ export const deletebook = bookId => {
  * @param {string} keyword
  * @returns {Array<Book>}
  */
-export const searchBooks = keyword => {
+export const getBooks = keyword => {
+  if (!keyword) {
+    return [...books];
+  }
+
   const trimmedKeyword = keyword.trim();
   const trimmedKeywordAsNumber = parseInt(trimmedKeyword);
 
@@ -106,5 +112,3 @@ export const searchBooks = keyword => {
     );
   });
 };
-
-export const getBooks = () => [...books];
